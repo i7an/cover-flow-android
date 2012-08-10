@@ -1,4 +1,4 @@
-package ivan.selfeducation;
+package ivan.coverflow;
 
 import android.app.Activity;
 import android.opengl.GLSurfaceView;

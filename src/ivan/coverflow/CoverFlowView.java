@@ -35,6 +35,7 @@ public class CoverFlowView extends GLSurfaceView {
 	public boolean onTouchEvent(MotionEvent event) {		
 		if(event.getAction() == MotionEvent.ACTION_DOWN) {
 	        x = event.getX();
+	        mRender.restore = false;
 	    }
 		if (event.getAction() == MotionEvent.ACTION_MOVE) {
 	        final float xdiff = (x - event.getX());
@@ -44,6 +45,9 @@ public class CoverFlowView extends GLSurfaceView {
 	            }
 	        });
 	        x = event.getX();
+	    }
+	    if(event.getAction() == MotionEvent.ACTION_UP) {
+	        mRender.restore = true;
 	    }
 		return true;
 	}

@@ -14,6 +14,7 @@ import android.opengl.GLUtils;
 
 public class CoverFlowRender implements GLSurfaceView.Renderer {
 
+    public boolean restore = false;
 
 	private final float PERSP_FOVY = 50f;
 	private final float PERSP_NEAR = 1f;
@@ -25,7 +26,7 @@ public class CoverFlowRender implements GLSurfaceView.Renderer {
 
 	private final float EYE_X = 0f;
 	private final float EYE_Y = 0f;
-	private final float EYE_Z = 6f;
+	private final float EYE_Z = 5f;
 
 	private final float d = 0.3f;
 	private final float D = 1.5f; 
@@ -88,6 +89,23 @@ public class CoverFlowRender implements GLSurfaceView.Renderer {
 			gl.glPopMatrix();
 			
 			offset += d;
+		}
+
+		if(restore) {
+			float delta = offset - d * ((int)(offset / d));
+			delta = (delta < 0) ? (d - delta) : delta;
+
+			if(delta < 0.006f) {
+				scene_offset -= delta;
+				restore = false;
+				return;
+			}
+
+			if(delta < d / 2) {
+				scene_offset -= 0.006f;
+			} else {
+				scene_offset += 0.006f;
+			}
 		}
 	}
 
@@ -164,7 +182,7 @@ public class CoverFlowRender implements GLSurfaceView.Renderer {
 	}
 	
 	public void shiftScene(float delta) {
-		scene_offset -= delta*2;
+		scene_offset -= delta;
 	}
 
 }

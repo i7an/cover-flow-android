@@ -21,11 +21,11 @@ public class CoverFlowRender implements GLSurfaceView.Renderer {
 
 	private final float CLEAR_COLOR_RED    = 0f;
 	private final float CLEAR_COLOR_GREEN  = 0f;
-	private final float CLEAR_COLOR_BLUE   = 0f;
+	private final float CLEAR_COLOR_BLUE   = 0.5f;
 
 	private final float EYE_X = 0f;
 	private final float EYE_Y = 0f;
-	private final float EYE_Z = 6f;
+	private final float EYE_Z = 3.6f;
 
 	private final float d = 0.3f;
 	private final float D = 1.5f; 

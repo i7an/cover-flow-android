@@ -35,4 +35,13 @@ public class CoverFlow extends LinearLayout {
 		addView(surf);
 	}
 
+	public void onPause() {
+		surf.onPause();
+		
+	}
+
+	public void onResume() {
+		surf.onResume();
+	}
+
 }

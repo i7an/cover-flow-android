@@ -1,6 +1,5 @@
 package ivan.coverflow;
 
-import ivan.coverflow.R;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -35,7 +34,7 @@ public class CoverFlowSurface extends GLSurfaceView {
 	public boolean onTouchEvent(MotionEvent event) {		
 		if(event.getAction() == MotionEvent.ACTION_DOWN) {
 	        x = event.getX();
-	        mRender.restore = false;
+	        mRender.scrollStop();
 	    }
 		if (event.getAction() == MotionEvent.ACTION_MOVE) {
 	        final float xdiff = (x - event.getX());
@@ -47,7 +46,7 @@ public class CoverFlowSurface extends GLSurfaceView {
 	        x = event.getX();
 	    }
 	    if(event.getAction() == MotionEvent.ACTION_UP) {
-	        mRender.restore = true;
+	        mRender.scrollLeft();
 	    }
 		return true;
 	}
@@ -55,5 +54,8 @@ public class CoverFlowSurface extends GLSurfaceView {
 	private Bitmap getBitmapFormRes(int res) {
 		return BitmapFactory.decodeResource(getContext().getResources(), res); 
 	}
+	
 
 }
+
+

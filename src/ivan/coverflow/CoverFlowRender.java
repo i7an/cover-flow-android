@@ -13,8 +13,12 @@ import android.opengl.GLU;
 import android.opengl.GLUtils;
 
 public class CoverFlowRender implements GLSurfaceView.Renderer {
+	
+	private float SCROLL_LEFT = -1f;
+	private float SCROLL_RIGHT = 1f;
+	private float SCROLL_NO = 0f;
 
-    public boolean restore = false;
+    public float scrollTo = SCROLL_NO;
 
 	private final float PERSP_FOVY = 50f;
 	private final float PERSP_NEAR = 1f;
@@ -90,23 +94,7 @@ public class CoverFlowRender implements GLSurfaceView.Renderer {
 			
 			offset += d;
 		}
-
-		if(restore) {
-			float delta = offset - d * ((int)(offset / d));
-			delta = (delta < 0) ? (d - delta) : delta;
-
-			if(delta < 0.006f) {
-				scene_offset -= delta;
-				restore = false;
-				return;
-			}
-
-			if(delta < d / 2) {
-				scene_offset -= 0.006f;
-			} else {
-				scene_offset += 0.006f;
-			}
-		}
+		scroll();
 	}
 
 	@Override
@@ -181,8 +169,31 @@ public class CoverFlowRender implements GLSurfaceView.Renderer {
 		}
 	}
 	
+	private void scroll() {
+		float delta = scene_offset - d * ((int)(scene_offset / d));
+
+		if(Math.abs(delta) < 0.006f) {
+			scene_offset -= delta;
+			scrollStop();
+		}
+
+		scene_offset += scrollTo * 0.006f;
+	}
+	
 	public void shiftScene(float delta) {
 		scene_offset -= delta;
+	}
+	
+	public void scrollRight() {
+		scrollTo = SCROLL_RIGHT;
+	}
+	
+	public void scrollLeft() {
+		scrollTo = SCROLL_LEFT;
+	}
+	
+	public void scrollStop() {
+		scrollTo = SCROLL_NO;
 	}
 
 }
